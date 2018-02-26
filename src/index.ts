@@ -14,11 +14,7 @@ import {
 } from 'react-navigation';
 
 class Navigation {
-  constructor(Navigator: NavigationContainer) {
-    this.Navigator = Navigator;
-  }
-
-  Navigator: NavigationContainer;
+  Navigator: NavigationContainer = this.constructor.arguments[0];
 
   @observable.ref state: NavigationState = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
 
