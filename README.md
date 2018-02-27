@@ -18,23 +18,23 @@ import NavigationStore from 'react-navigation-mobx-helpers';
 
 const RootNavigator = StackNavigator(RouteConfigs);
 
-const enhancedNavigation = new NavigationStore(RootNavigator);
+const rootNavigation = new NavigationStore(RootNavigator);
 
 class Root extends React.Component {
   render() {
     return (
-      <Provider enhancedNavigation={enhancedNavigation}>
+      <Provider rootNavigation={rootNavigation}>
         <App />
       </Provider>
     );
   }
 }
 
-@inject('enhancedNavigation')
+@inject('rootNavigation')
 @observer
 class App extends React.Component {
   render() {
-    const { state, dispatch, addListener } = this.props.enhancedNavigation;
+    const { state, dispatch, addListener } = this.props.rootNavigation;
     return (
       <RootNavigator
         navigation={addNavigationHelpers({ state, dispatch, addListener })}
