@@ -19,7 +19,7 @@
     "mobx",
     "react-navigation-mobx"
   ],
-  "author": "Raiden",
+  "author": "Raiden <shinji.jy@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Javascript-Ninja/react-navigation-mobx-helpers/issues"
