@@ -26,14 +26,16 @@
     "url": "https://github.com/Javascript-Ninja/react-navigation-mobx-helpers/issues"
   },
   "homepage": "https://github.com/Javascript-Ninja/react-navigation-mobx-helpers#readme",
+  "dependencies": {
+    "@types/react-navigation": "^1.5.5",
+    "react-navigation": "^1.5.11"
+  },
   "devDependencies": {
-    "@types/react-navigation": "^1.1.0",
-    "mobx": "^3.5.1",
-    "react-navigation": "^1.1.2",
-    "typescript": "^2.7.2"
+    "mobx": "^4.1.1",
+    "typescript": "^2.8.1"
   },
   "peerDependencies": {
-    "mobx": "^3.5.1",
+    "mobx": ">=3.0.0",
     "react-navigation": ">=1.0.0"
   }
 }
