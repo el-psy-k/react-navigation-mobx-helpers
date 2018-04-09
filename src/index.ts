@@ -7,6 +7,8 @@ import {
   NavigationBackActionPayload,
   NavigationInitActionPayload,
   NavigationNavigateActionPayload,
+  NavigationPopActionPayload,
+  NavigationPopToTopActionPayload,
   NavigationResetActionPayload,
   NavigationSetParamsActionPayload,
   NavigationUriAction,
@@ -18,9 +20,9 @@ class Navigation {
 
   @observable.ref state: NavigationState = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
 
-  subscribers = new Set();
+  subscribers: Set<any> = new Set();
 
-  @action.bound dispatch(action: NavigationAction & any) {
+  @action.bound dispatch(action: NavigationAction | any) {
     const lastState = this.state;
     const state = this.Navigator.router.getStateForAction(action, lastState);
     this.subscribers.forEach((subscriber) => {
@@ -65,20 +67,13 @@ class Navigation {
     this.dispatch(action);
   }
 
-  pop = (payload: any) => {
-    const action = {
-      type: 'Navigation/POP',
-      n: payload && payload.n,
-      immediate: payload && payload.immediate,
-    };
+  pop = (payload: NavigationPopActionPayload) => {
+    const action: NavigationAction = NavigationActions.pop(payload);
     this.dispatch(action);
   }
 
-  popToTop = (payload: any) => {
-    const action = {
-      type: 'Navigation/POP_TO_TOP',
-      immediate: payload && payload.immediate,
-    };
+  popToTop = (payload: NavigationPopToTopActionPayload) => {
+    const action: NavigationAction = NavigationActions.popToTop(payload);
     this.dispatch(action);
   }
 
