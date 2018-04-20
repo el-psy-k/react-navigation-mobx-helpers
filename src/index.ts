@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import {
   NavigationContainer,
-  NavigationState,
+  NavigationStateRoute,
   NavigationActions,
   NavigationAction,
   NavigationEventCallback,
@@ -20,13 +20,14 @@ import {
 class Navigation {
   constructor(private Navigator: NavigationContainer) {};
 
-  @observable.ref state: NavigationState = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
+  @observable.ref state: NavigationStateRoute<any> = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
 
-  subscribers: Set<any> = new Set();
+  private subscribers: Map<string, NavigationEventCallback> = new Map();
 
   @action.bound dispatch(action: NavigationAction | any) {
     const lastState = this.state;
     const state = this.Navigator.router.getStateForAction(action, lastState);
+    this.state = state;
     this.subscribers.forEach((subscriber) => {
       subscriber({
         type: 'action',
@@ -35,17 +36,17 @@ class Navigation {
         lastState,
       });
     });
-    this.state = state;
   }
 
   addListener = (eventName: string, handler: NavigationEventCallback): NavigationEventSubscription => {
     if (eventName !== 'action') {
-      return { remove() {} };
+      return { remove: () => {} };
     }
-    this.subscribers.add(handler);
+    const { key } = this.state;
+    this.subscribers.set(key, handler);
     return {
       remove: () => {
-        this.subscribers.delete(handler);
+        this.subscribers.delete(key);
       },
     };
   }
