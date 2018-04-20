@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/Javascript-Ninja/react-navigation-mobx-helpers#readme",
   "dependencies": {
-    "@types/react-navigation": "^1.5.5",
+    "@types/react-navigation": "^1.5.7",
     "react-navigation": "^1.5.11"
   },
   "devDependencies": {
-    "mobx": "^4.1.1",
-    "typescript": "^2.8.1"
+    "mobx": "^4.2.0",
+    "typescript": "^2.8.3"
   },
   "peerDependencies": {
     "mobx": ">=3.0.0",
