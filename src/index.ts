@@ -1,9 +1,11 @@
 import { observable, action } from 'mobx';
 import {
-  NavigationActions,
   NavigationContainer,
   NavigationState,
+  NavigationActions,
   NavigationAction,
+  NavigationEventCallback,
+  NavigationEventSubscription,
   NavigationBackActionPayload,
   NavigationInitActionPayload,
   NavigationNavigateActionPayload,
@@ -36,7 +38,7 @@ class Navigation {
     this.state = state;
   }
 
-  addListener = (eventName: string, handler: () => {}) => {
+  addListener = (eventName: string, handler: NavigationEventCallback): NavigationEventSubscription => {
     if (eventName !== 'action') {
       return { remove() {} };
     }
