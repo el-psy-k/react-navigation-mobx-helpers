@@ -13,8 +13,9 @@ import {
   NavigationPopToTopActionPayload,
   NavigationResetActionPayload,
   NavigationSetParamsActionPayload,
-  NavigationUriAction,
   NavigationUriActionPayload,
+  NavigationParams,
+  NavigationNavigateAction,
 } from 'react-navigation';
 
 class Navigation {
@@ -24,7 +25,7 @@ class Navigation {
 
   private subscribers: Map<string, NavigationEventCallback> = new Map();
 
-  @action.bound dispatch(action: NavigationAction | any) {
+  @action.bound dispatch(action: NavigationAction) {
     const lastState = this.state;
     const state = this.Navigator.router.getStateForAction(action, lastState);
     this.state = state;
@@ -56,80 +57,61 @@ class Navigation {
    */
 
   back = (payload: NavigationBackActionPayload) => {
-    const action: NavigationAction = NavigationActions.back(payload);
+    const action = NavigationActions.back(payload);
     this.dispatch(action);
   }
 
   init = (payload: NavigationInitActionPayload) => {
-    const action: NavigationAction = NavigationActions.init(payload);
+    const action = NavigationActions.init(payload);
     this.dispatch(action);
   }
 
   navigate = (payload: NavigationNavigateActionPayload) => {
-    const action: NavigationAction = NavigationActions.navigate(payload);
+    const action = NavigationActions.navigate(payload);
     this.dispatch(action);
   }
 
   pop = (payload: NavigationPopActionPayload) => {
-    const action: NavigationAction = NavigationActions.pop(payload);
+    const action = NavigationActions.pop(payload);
     this.dispatch(action);
   }
 
   popToTop = (payload: NavigationPopToTopActionPayload) => {
-    const action: NavigationAction = NavigationActions.popToTop(payload);
+    const action = NavigationActions.popToTop(payload);
     this.dispatch(action);
   }
 
-  push = (payload: any) => {
-    const action: any = {
-      type: 'Navigation/PUSH',
-      routeName: payload.routeName,
-    };
-    if (payload.params) {
-      action.params = payload.params;
-    }
-    if (payload.action) {
-      action.action = payload.action;
-    }
+  push = (payload: { routeName: string, params?: NavigationParams, action?: NavigationNavigateAction }) => {
+    // @ts-ignore
+    const action = NavigationActions.push(payload);
     this.dispatch(action);
   }
 
   reset = (payload: NavigationResetActionPayload) => {
-    const action: NavigationAction = NavigationActions.reset(payload);
+    const action = NavigationActions.reset(payload);
     this.dispatch(action);
   }
 
-  replace = (payload: any) => {
-    const action = {
-      type: 'Navigation/REPLACE',
-      key: payload.key,
-      newKey: payload.newKey,
-      params: payload.params,
-      action: payload.action,
-      routeName: payload.routeName,
-      immediate: payload.immediate,
-    };
+  replace = (payload: { routeName: string, params?: NavigationParams, action?: NavigationNavigateAction }) => {
+    // @ts-ignore
+    const action = NavigationActions.replace(payload);
     this.dispatch(action);
   }
 
   setParams = (payload: NavigationSetParamsActionPayload) => {
-    const action: NavigationAction = NavigationActions.setParams(payload);
+    const action = NavigationActions.setParams(payload);
     this.dispatch(action);
   }
 
   uri = (payload: NavigationUriActionPayload) => {
-    const action: NavigationUriAction = {
-      type: 'Navigation/URI',
-      uri: payload.uri,
-    };
+    // @ts-ignore
+    const action = NavigationActions.uri(payload);;
     this.dispatch(action);
   }
 
-  completeTransition = (payload: any) => {
-    const action = {
-      type: 'Navigation/COMPLETE_TRANSITION',
-      key: payload && payload.key,
-    };
+  completeTransition = (payload: { key?: string }) => {
+    // @ts-ignore
+    const action = NavigationActions.completeTransition(payload);
     this.dispatch(action);
   }
 
@@ -138,7 +120,7 @@ class Navigation {
    */
 
   resetTo = (payload: NavigationNavigateActionPayload) => {
-    const action: NavigationAction = NavigationActions.reset({
+    const action = NavigationActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate(payload),
