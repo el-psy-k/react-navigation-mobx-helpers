@@ -12,8 +12,8 @@ npm install react-navigation-mobx-helpers --save
 
 ```jsx
 import React from 'react';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { Provider, inject, observer } from 'mobx-react';
+import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import NavigationStore from 'react-navigation-mobx-helpers';
 
 const RootNavigator = StackNavigator(RouteConfigs);
