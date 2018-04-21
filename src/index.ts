@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import {
   NavigationContainer,
-  NavigationStateRoute,
+  NavigationState,
   NavigationActions,
   NavigationAction,
   NavigationEventCallback,
@@ -21,9 +21,9 @@ import {
 class Navigation {
   constructor(private Navigator: NavigationContainer) {};
 
-  @observable.ref state: NavigationStateRoute<any> = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
+  @observable.ref state: NavigationState = this.Navigator.router.getStateForAction(NavigationActions.init(), null);
 
-  private subscribers: Map<string, NavigationEventCallback> = new Map();
+  private subscribers: Set<NavigationEventCallback> = new Set();
 
   @action.bound dispatch(action: NavigationAction) {
     const lastState = this.state;
@@ -43,11 +43,10 @@ class Navigation {
     if (eventName !== 'action') {
       return { remove: () => {} };
     }
-    const { key } = this.state;
-    this.subscribers.set(key, handler);
+    this.subscribers.add(handler);
     return {
       remove: () => {
-        this.subscribers.delete(key);
+        this.subscribers.delete(handler);
       },
     };
   }
