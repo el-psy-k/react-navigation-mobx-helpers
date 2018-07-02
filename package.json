@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
-    "prepublishOnly": "tsc --skipLibCheck"
+    "prepublishOnly": "tsc"
   },
   "repository": {
     "type": "git",
@@ -27,15 +27,15 @@
   },
   "homepage": "https://github.com/Javascript-Ninja/react-navigation-mobx-helpers#readme",
   "dependencies": {
-    "@types/react-navigation": "^1.5.7",
-    "react-navigation": "^1.5.11"
+    "@types/react-navigation": "^2.0.9",
+    "react-navigation": "^2.5.5"
   },
   "devDependencies": {
-    "mobx": "^4.2.0",
-    "typescript": "^2.8.3"
+    "mobx": "^5.0.3",
+    "typescript": "^2.9.2"
   },
   "peerDependencies": {
     "mobx": ">=3.0.0",
-    "react-navigation": "^1.x"
+    "react-navigation": "^2.x"
   }
 }

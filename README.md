@@ -13,12 +13,12 @@ npm install react-navigation-mobx-helpers --save
 ```jsx
 import React from 'react';
 import { Provider, inject, observer } from 'mobx-react';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import NavigationStore from 'react-navigation-mobx-helpers';
 
 const RootNavigator = StackNavigator(RouteConfigs);
 
-const rootNavigation = new NavigationStore(RootNavigator);
+const rootNavigation = new NavigationStore();
 
 class Root extends React.Component {
   render() {
@@ -34,12 +34,8 @@ class Root extends React.Component {
 @observer
 class App extends React.Component {
   render() {
-    const { state, dispatch, addListener } = this.props.rootNavigation;
-    return (
-      <RootNavigator
-        navigation={addNavigationHelpers({ state, dispatch, addListener })}
-      />
-    );
+    const { rootNavigation } = this.props;
+    return <RootNavigator ref={rootNavigation.createRef} />;
   }
 }
 ```
