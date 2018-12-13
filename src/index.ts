@@ -5,7 +5,9 @@ export default class Navigation {
   @observable.ref navigation: NavigationScreenProp<NavigationState> | undefined;
 
   @action.bound createRef(ref: NavigationContainerComponent & { _navigation: NavigationScreenProp<NavigationState> }) {
-    this.navigation = ref._navigation;
+    if(ref){
+      this.navigation = ref._navigation;
+    }
   }
 
   @action.bound dispatch(action: NavigationAction) {
