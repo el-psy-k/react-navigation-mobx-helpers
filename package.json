@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-mobx-helpers",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React-Navigation bindings for MobX",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
